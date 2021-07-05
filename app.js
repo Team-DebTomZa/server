@@ -49,6 +49,18 @@ app.post('/journals', (req,res) => {
     res.status(201).json({success: true, message: 'Entry added successfully'})
 })
 
+
+//Use if need to delete all journals for testing purposes
+app.delete('/journals/deleteall/:passcode', (req,res) => {
+    let passcode = parseInt(req.params.passcode);
+    if (passcode === 1234){
+        saveData([]);
+        res.status(204).send({success: true, message: 'All journals deleted'})
+    } else {
+        res.status(401).send({success: false, message: 'Unauthorised client!'})
+    }
+})
+
 module.exports = { app };
 
 
