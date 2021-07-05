@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const { saveData, getData } = require('./utils')
 const app = express();
-
 
 //MIDDLEWARE
 app.use(express.json());
