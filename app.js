@@ -49,6 +49,46 @@ app.post('/journals', (req,res) => {
     res.status(201).json({success: true, message: 'Entry added successfully'})
 })
 
+//Use this route to update a journal entries emojis count or comments
+app.patch('/journals/:id', (req, res) => {
+    //get the journal id from url and new emoji count or comment from body
+    const id = parseInt(req.params.id);
+    const data = req.body;
+
+    //get the existing journals
+    const journals = getData()
+
+    //check if the journal id exists       
+    const requestedJournal = journals.find( journal => journal.id === id )
+    if (!requestedJournal) {
+        return res.status(409).send({error: true, message: 'Invalid journal ID'})
+    }
+
+    //Update the emoji count or comments if they are sent in data
+    let { emojis, newComment } = data;
+    if (emojis){
+        requestedJournal.emojis = emojis;
+    }
+    if (newComment){
+        requestedJournal.comments.push(newComment)
+    }
+
+    saveData(journals)
+    res.send({success: true, message: `Journal with id: ${id}, updated successfully`})
+})
+
+
+//Use if need to delete all journals for testing purposes
+app.delete('/journals/deleteall/:passcode', (req,res) => {
+    let passcode = parseInt(req.params.passcode);
+    if (passcode === 1234){
+        saveData([]);
+        res.status(204).send({success: true, message: 'All journals deleted'})
+    } else {
+        res.status(401).send({success: false, message: 'Unauthorised client!'})
+    }
+})
+
 module.exports = { app };
 
 
