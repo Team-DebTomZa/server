@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { saveData, getData } = require('./utils');
-const Journal = require('./models');
+const { Journal } = require('./models');
 const app = express();
 
 //MIDDLEWARE
@@ -38,7 +38,7 @@ app.post('/journals', (req,res) => {
     }
 
     //check if any required fields are missing from the request
-    if (data.title === null || data.content === null){
+    if ( !data.title || !data.content ){
         return res.status(401).json({error: true, message: 'Required data field missing - no title or no content received'})
     }
 
