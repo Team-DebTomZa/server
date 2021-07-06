@@ -43,7 +43,7 @@ app.post('/journals', (req,res) => {
     }
 
     //create the new journal and then append it to the journals array. Save this updated array to the json file.
-    const newJournalEntry = new Journal(id, data.title, data.content);
+    const newJournalEntry = new Journal(id, data.title, data.content, data.gifUrl);
     journals.push(newJournalEntry);
     saveData(journals); //this utility function is from the utils.js file
     res.status(201).json({success: true, message: 'Entry added successfully'})

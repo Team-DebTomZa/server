@@ -13,6 +13,4 @@ function getData(){
     return JSON.parse(jsonData);
 }
 
-getData();
-
 module.exports = { saveData, getData };
