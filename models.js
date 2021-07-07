@@ -8,7 +8,7 @@ class Journal{
         this.gifUrl = gifUrl;
         this.emojis = [0, 0, 0]; //array with each element representing number of that emoji reactions the journal has
         this.comments = [];
-        this.date = date.toLocaleDateString();
+        this.date = date.toDateString();
     }
 }
 
